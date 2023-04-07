@@ -5,31 +5,43 @@ import Block from "./block.jsx";
 
 //create your first component
 const Home = () => {
-	const [timer, setTimer] = useState(0)
+	const [timer, setTimer] = useState(0);
+	const [running, setRunning ] =useState(true); 
 
 	// setInterval (()=>{
 	// 	setTimer(timer+1);
 	// },1000);
 
 	useEffect(()=>{
-		setInterval (()=>{
+		if(running){
+	    const value =	setInterval (()=>{
 			setTimer(timer=>timer+1);
 		},1000)
+		return ()=> clearInterval(value);
+	}
+	},[running]);
 
-	},[])
+	useEffect(()=>{
+
+	})
 
 	return (
 		<div className="d-flex container">
-  			<Block time={timer}/>
-		  	<Block time={timer}/>
-		  	<Block time={timer}/>
-		  	<Block time={timer}/>
-		  	<Block time={timer}/>
-			<Block time={timer}/>
-		</div>
-		
-		
-	);
-};
+  			<button className="btn">SHOW</button>
+			<Block time={Math.floor(timer/10000)%10}/>
+			<Block time={Math.floor(timer/1000)%10}/>
+			<Block time={Math.floor(timer/100)%10}/>
+			<Block time={Math.floor(timer/10)%10}/>
+			<Block time={Math.floor(timer)%10}/>
+			<button className="btn" onClick={()=>{
+				setTimer(0);
+				setRunning(false);
+			}
+			}>RESET</button>
+			<button className="btn" onClick={()=>{
+				setRunning(!running)
+			}}>{running?"PAUSE": "PLAY"}</button>	
 
-export default Home;
+		</div>				
+		)};
+		export default Home;
