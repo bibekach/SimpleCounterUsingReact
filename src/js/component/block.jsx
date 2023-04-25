@@ -2,11 +2,13 @@ import React from "react";
 
 
 //create your first component
- const Block = ({time}) => {
+const Block = ({ time }) => {
 	return (
-		    <div className="bg-dark text-white text-centre">
-                {time}
-            </div>
+		<div className="container">
+			<div className="bg-dark text-white text-centre">
+			 {time}
+			</div>
+		</div>
 	);
 };
 
